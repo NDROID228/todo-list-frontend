@@ -1,0 +1,6 @@
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  main { max-width: 100%; padding: 1rem; }
+  .todo-checkbox { width: 0.9rem; height: 0.9rem; }
+  .delete-btn, .edit-btn { width: 0.9rem; height: 0.9rem; font-size: 0.9rem; }
+}
