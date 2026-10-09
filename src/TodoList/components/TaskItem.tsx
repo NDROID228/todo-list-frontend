@@ -8,10 +8,11 @@ type TaskItemProps = {
 };
 
 function TaskItem({ todo }: TaskItemProps) {
-  const { dispatch } = useTodo();
+  // Grab async helpers from context (dispatch is still available but not used here)
+  const { toggleTodo, editTodo, removeTodo } = useTodo();
 
-  const toggle = () => dispatch({ type: "toggle", payload: { id: todo.id } });
-  const remove = () => dispatch({ type: "remove", payload: { id: todo.id } });
+  const toggle = () => toggleTodo(todo.id);
+  const remove = () => removeTodo(todo.id);
 
   // ---------- Edit states ----------
   const [isEditing, setIsEditing] = useState(false);
@@ -25,7 +26,8 @@ function TaskItem({ todo }: TaskItemProps) {
   const submitEdit = () => {
     const trimmed = editText.trim();
     if (trimmed && trimmed !== todo.text) {
-      dispatch({ type: "edit", payload: { id: todo.id, text: trimmed } });
+      // Use async helper to update backend then reducer
+      void editTodo(todo.id, trimmed);
     }
     setIsEditing(false);
   };

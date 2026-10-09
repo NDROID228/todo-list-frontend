@@ -4,13 +4,13 @@ import { useTodo } from "../context/TodoContext";
 
 function TaskInput() {
   const [value, setValue] = useState("");
-  const { dispatch } = useTodo();
+  const { addTodo } = useTodo();
 
-  const submit = (e: React.SubmitEvent<HTMLFormElement>) => {
+  const submit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const trimmed = value.trim();
     if (trimmed) {
-      dispatch({ type: "add", payload: { text: trimmed } });
+      await addTodo(trimmed);
       setValue("");
     }
   };
